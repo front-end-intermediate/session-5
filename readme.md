@@ -1,8 +1,14 @@
 # V - Front End Frameworks
 
-## Webpack and Components
+## Homework Review
 
-`$npm i -y`
+Install the components from last class.
+
+`$npm i`
+
+
+
+## Webpack and Angular Components
 
 ## Webpack and Babel
 
