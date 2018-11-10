@@ -1,8 +1,8 @@
 # V - Front End Frameworks
 
-## Webpack and Angular Components
+## Webpack and Components
 
-`$npm i`
+`$npm i -y`
 
 ## Webpack and Babel
 
