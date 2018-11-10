@@ -1,11 +1,10 @@
 {
-  "name": "session-4a",
+  "name": "session-5",
   "version": "1.0.0",
   "description": "## Homework",
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "cors": "^2.8.5",
     "express": "^4.16.4",
     "mongoose": "^5.3.10",
     "nodemon": "^1.18.6"
@@ -16,13 +15,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/front-end-intermediate/session-4a.git"
+    "url": "git+https://github.com/front-end-intermediate/session-5.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/front-end-intermediate/session-4a/issues"
+    "url": "https://github.com/front-end-intermediate/session-5/issues"
   },
-  "homepage": "https://github.com/front-end-intermediate/session-4a#readme"
+  "homepage": "https://github.com/front-end-intermediate/session-5#readme"
 }
