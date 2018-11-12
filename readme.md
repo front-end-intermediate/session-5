@@ -40,7 +40,13 @@ Add links to the recipe titles in the (non angular) template. When the user clic
 <a id="markdown-2-homework-review" name="2-homework-review"></a>
 ## 2. Homework Review
 
-Install the npm components from last class and kick off the application:
+Clone the current session by `cd`ing to the desktop and entering:
+
+```sh
+git clone https://github.com/front-end-intermediate/session-5.git
+```
+
+`cd` into the newly cloned folder, install the npm components from last class and kick off the application:
 
 ```sh
 $npm i
