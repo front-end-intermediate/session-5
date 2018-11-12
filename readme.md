@@ -2,45 +2,41 @@
 
 <!-- TOC -->
 
-- [1. Homework](#1-homework)
-- [2. Homework Review](#2-homework-review)
-  - [2.1. Environment Variables](#21-environment-variables)
-  - [2.2. Transpiling to CSS](#22-transpiling-to-css)
-  - [2.3. Adding a Recipe](#23-adding-a-recipe)
-  - [Responsive Recipes](#responsive-recipes)
-- [3. ES6 Modules](#3-es6-modules)
-  - [ES6 Modules - Demo](#es6-modules---demo)
-- [4. Webpack](#4-webpack)
-  - [4.1. Our Script](#41-our-script)
-- [5. Babel](#5-babel)
-  - [5.1. ES6 Module Syntax (Demo)](#51-es6-module-syntax-demo)
-- [6. Angular as a Templating Engine](#6-angular-as-a-templating-engine)
-  - [6.1. Our first Component](#61-our-first-component)
-  - [6.2. Routing and Multiple Components](#62-routing-and-multiple-components)
-  - [6.3. $HTTP](#63-http)
-  - [6.4. Filtering and Sorting](#64-filtering-and-sorting)
-  - [6.5. Adding Routing to Display Individual Recipes](#65-adding-routing-to-display-individual-recipes)
-  - [6.6. Adding the Detail Template](#66-adding-the-detail-template)
-  - [6.7. Deleting a Recipe](#67-deleting-a-recipe)
-  - [6.8. Adding a Recipe](#68-adding-a-recipe)
-  - [6.9. Updating a Recipe](#69-updating-a-recipe)
-  - [6.10. Test with Curl](#610-test-with-curl)
-  - [6.11. Edit Recipe in the Detail Template](#611-edit-recipe-in-the-detail-template)
-  - [6.12. Back button](#612-back-button)
-  - [6.13. Edit Button](#613-edit-button)
-- [7. Notes](#7-notes)
-  - [7.1. Adding an Image](#71-adding-an-image)
-  - [7.2. ng-click](#72-ng-click)
+- [1. Homework Review](#1-homework-review)
+  - [1.1. Environment Variables](#11-environment-variables)
+  - [1.2. Transpiling to CSS](#12-transpiling-to-css)
+  - [1.3. Adding a Recipe](#13-adding-a-recipe)
+  - [1.4. Responsive Recipes](#14-responsive-recipes)
+- [2. ES6 Modules](#2-es6-modules)
+  - [2.1. ES6 Modules - Demo](#21-es6-modules---demo)
+- [3. Webpack](#3-webpack)
+  - [3.1. Our Script](#31-our-script)
+- [4. Babel](#4-babel)
+  - [4.1. ES6 Module Syntax (Demo)](#41-es6-module-syntax-demo)
+- [5. Angular as a Templating Engine](#5-angular-as-a-templating-engine)
+  - [5.1. Our first Component](#51-our-first-component)
+  - [5.2. Routing and Multiple Components](#52-routing-and-multiple-components)
+  - [5.3. $HTTP](#53-http)
+  - [5.4. Adding Routing to Display Individual Recipes](#54-adding-routing-to-display-individual-recipes)
+  - [5.5. Adding the Detail Template](#55-adding-the-detail-template)
+  - [5.6. Deleting a Recipe](#56-deleting-a-recipe)
+  - [5.7. Adding a Recipe](#57-adding-a-recipe)
+  - [5.8. Updating a Recipe](#58-updating-a-recipe)
+  - [5.9. Test with Curl](#59-test-with-curl)
+  - [5.10. Edit Recipe in the Detail Template](#510-edit-recipe-in-the-detail-template)
+  - [5.11. Back button](#511-back-button)
+  - [5.12. Edit Button](#512-edit-button)
+- [6. Notes](#6-notes)
+  - [6.1. Adding an Image](#61-adding-an-image)
+  - [6.2. ng-click](#62-ng-click)
 
 <!-- /TOC -->
 
-<a id="markdown-1-homework" name="1-homework"></a>
-## 1. Homework
 
-Add links to the recipe titles in the (non angular) template. When the user clicks on a link they should see a recipe detail page and be able to navigate back to the main recipe listing page.
+Add links to the recipe titles in the (non angular) template. When the user clicks on a link they should see a recipe detail page. Try to add navigation to go back to the main recipe listing page.
 
-<a id="markdown-2-homework-review" name="2-homework-review"></a>
-## 2. Homework Review
+<a id="markdown-1-homework-review" name="1-homework-review"></a>
+## 1. Homework Review
 
 Clone the current session by `cd`ing to the desktop and entering:
 
@@ -63,8 +59,8 @@ I've externalized the `scripts.js` file for `index.html` and it isn't loading. Y
 app.use(express.static('app'));
 ```
 
-<a id="markdown-21-environment-variables" name="21-environment-variables"></a>
-### 2.1. Environment Variables
+<a id="markdown-11-environment-variables" name="11-environment-variables"></a>
+### 1.1. Environment Variables
 
 Edit the mongoUri variable in `app.js` to use your own database on mLab.
 
@@ -256,8 +252,8 @@ and remove the call added earlier:
 // getEm();
 ``` -->
 
-<a id="markdown-22-transpiling-to-css" name="22-transpiling-to-css"></a>
-### 2.2. Transpiling to CSS
+<a id="markdown-12-transpiling-to-css" name="12-transpiling-to-css"></a>
+### 1.2. Transpiling to CSS
 
 Add the following css to `scss/imports/_recipes.scss`:
 
@@ -304,8 +300,8 @@ img {
 }
 ```
 
-<a id="markdown-23-adding-a-recipe" name="23-adding-a-recipe"></a>
-### 2.3. Adding a Recipe
+<a id="markdown-13-adding-a-recipe" name="13-adding-a-recipe"></a>
+### 1.3. Adding a Recipe
 
 Here is the form we used in a previous lesson:
 
@@ -375,8 +371,8 @@ Edit the controller:
 
 `// return res.sendStatus(200);`
 
-<a id="markdown-responsive-recipes" name="responsive-recipes"></a>
-### Responsive Recipes
+<a id="markdown-14-responsive-recipes" name="14-responsive-recipes"></a>
+### 1.4. Responsive Recipes
 
 We need to be able to better see our recipes. Add the following to `_recipes.scss`:
 
@@ -456,8 +452,8 @@ Add the variable to `_variables.scss`:
 $breakSm: 380px;
 ```
 
-<a id="markdown-3-es6-modules" name="3-es6-modules"></a>
-## 3. ES6 Modules
+<a id="markdown-2-es6-modules" name="2-es6-modules"></a>
+## 2. ES6 Modules
 
 Code fencing and organization techniques - IIFEs, function expressions.
 
@@ -467,8 +463,8 @@ We have seen CommonJS Modules in Node and are using [them](https://nodejs.org/ap
 
 <!-- ES6 modules are not natively supported in the browser so we need to bundle them. Having installed Webpack for bundling we can now use [them](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import). -->
 
-<a id="markdown-es6-modules---demo" name="es6-modules---demo"></a>
-### ES6 Modules - Demo
+<a id="markdown-21-es6-modules---demo" name="21-es6-modules---demo"></a>
+### 2.1. ES6 Modules - Demo
 
 Create folder `module` in `app` and add `index.html` at the top level
 
@@ -529,8 +525,8 @@ function getComponent () {
 document.body.appendChild(getComponent());
 ```
 
-<a id="markdown-4-webpack" name="4-webpack"></a>
-## 4. Webpack
+<a id="markdown-3-webpack" name="3-webpack"></a>
+## 3. Webpack
 
 `npm i webpack webpack-cli -D`
 
@@ -563,8 +559,8 @@ module.exports = {
   <script src="bundle.js"></script>
 ```
 
-<a id="markdown-41-our-script" name="41-our-script"></a>
-### 4.1. Our Script
+<a id="markdown-31-our-script" name="31-our-script"></a>
+### 3.1. Our Script
 
 By default the webpack entry value is `./src/index.js`.
 
@@ -704,8 +700,8 @@ e.g.: try temporarily commenting out this line in `fetch.js`:
 
 `export default fetchRecipes;`
 
-<a id="markdown-5-babel" name="5-babel"></a>
-## 5. Babel
+<a id="markdown-4-babel" name="4-babel"></a>
+## 4. Babel
 
 I'll be following these instructions for adding [Babel](https://webpack.js.org/loaders/babel-loader/#src/components/Sidebar/Sidebar.jsx) to Webpack.
 
@@ -747,8 +743,8 @@ Restart the server with and view `http://localhost:3000/`.
 
 (One of the best resources for Webpack is the book at [survivejs](https://survivejs.com).)
 
-<a id="markdown-51-es6-module-syntax-demo" name="51-es6-module-syntax-demo"></a>
-### 5.1. ES6 Module Syntax (Demo)
+<a id="markdown-41-es6-module-syntax-demo" name="41-es6-module-syntax-demo"></a>
+### 4.1. ES6 Module Syntax (Demo)
 
 Create `src/test.js`.
 
@@ -817,8 +813,8 @@ console.log(foo, url);
 
 See [the documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) for options including `import as`, `export as` and exporting multiple items.
 
-<a id="markdown-6-angular-as-a-templating-engine" name="6-angular-as-a-templating-engine"></a>
-## 6. Angular as a Templating Engine
+<a id="markdown-5-angular-as-a-templating-engine" name="5-angular-as-a-templating-engine"></a>
+## 5. Angular as a Templating Engine
 
 Let's look at using Angular as our page templating language. Documentation for the features we will be using is located [here](https://docs.angularjs.org/guide).
 
@@ -865,8 +861,8 @@ import ngRoute from 'angular-route';
 
 (Note that your bundle just got very large.)
 
-<a id="markdown-61-our-first-component" name="61-our-first-component"></a>
-### 6.1. Our first Component
+<a id="markdown-51-our-first-component" name="51-our-first-component"></a>
+### 5.1. Our first Component
 
 Bootstrap the app in `index.html` and add a custom tag:
 
@@ -902,29 +898,35 @@ View the page in the browser.
 - `$scope` - the "glue" between application controller and the view (the state)
 - ng-model (and ng-repeat etc.) is an Angular [directive](https://docs.angularjs.org/api/ng/directive)
 - AngularJS vs Angular
-- Dependency injection for `ngRoute`:
+- Dependency injection for `ngRoute`
 
-`const app = angular.module('foodApp', ['ngRoute']);`
-
-`ngRoute` supplants Express routes for handling front end views. Always include a single route in Express for your SPA page. Angular routes handle the view (templates) and the logic (controllers) for the views.
+`ngRoute` is the router for front end views. Always include a single route in Express for your SPA page. Front end routes handle the view (templates) and the logic (controllers) for the views.
 
 Add a template in a new folder: `app > templates > recipes.html`:
 
 ```html`
 <div class="wrap">
-<ul class="recipes">
-  <li ng-repeat="recipe in recipes">
-  <img ng-src="img/{{ recipe.image }}">
-  <h2><a href="recipes/{{ recipe._id }}">{{ recipe.title }}</a></h2>
-  <p>{{ recipe.description }}</p>
-  </li>
-</ul>
-</div>
+  <h2>Recipes</h2>
+  <ul class="recipes">
+    <li ng-repeat="recipe in recipes">
+    <img ng-src="img/{{ recipe.image }}">
+    <h2><a href="recipes/{{ recipe._id }}">{{ recipe.title }}</a></h2>
+    <p>{{ recipe.description }}</p>
+    </li>
+  </ul>
+  </div>
 ```
 
-Edit the template declaration in myapp.js:
+Edit the template declaration in myapp.js `templateUrl: '/templates/recipes.html',`:
 
-`templateUrl: '/templates/recipes.html',`
+```js
+app.component('recipeList', {
+  templateUrl: '/templates/recipes.html',
+  controller: function RecipeListController($scope) {
+    $scope.name = 'Recipe List'
+  }
+});
+```
 
 <!-- ### Formatting
 
@@ -945,8 +947,8 @@ Edit the template declaration in myapp.js:
 
 ``` -->
 
-<a id="markdown-62-routing-and-multiple-components" name="62-routing-and-multiple-components"></a>
-### 6.2. Routing and Multiple Components
+<a id="markdown-52-routing-and-multiple-components" name="52-routing-and-multiple-components"></a>
+### 5.2. Routing and Multiple Components
 
 Create our first route using [Angular's ngRoute](https://docs.angularjs.org/api/ngRoute):
 
@@ -985,7 +987,7 @@ Use the `ng-view` directive to alow it to use whatever module we pass into it:
 </body>
 ```
 
-And add the template to our Angular route:
+And add the template to our routes:
 
 ```js
 app.config(function config($locationProvider, $routeProvider) {
@@ -1004,160 +1006,8 @@ app.config(function config($locationProvider, $routeProvider) {
 });
 ```
 
-Test the route. (Note the routes in Express - `app.js`.)
-
-```js
-app.get('*', function(req, res) {
-  res.sendFile(__dirname + '/app/index.html');
-});
-```
-
-<!-- ### The Navbar
-
-Using: `ng-class`
-
-Create a new controller in `index.js`:
-
-```js
-app.controller('NavController', function($scope, $location) {
-  $scope.isActive = function(viewLocation) {
-    var active = viewLocation === $location.path();
-    return active;
-  };
-});
-```
-
-Create the navigation using `ng-class` and this pattern:
-
-```html
-<nav ng-controller="NavController">
-  <div class="panels">
-    <div class="panel panel1" ng-class="{ active: isActive('/') }">
-      <a href="/">Home</a>
-    </div>
-    <div class="panel panel2" ng-class="{ active: isActive('/recipes') }">
-      <a href="/recipes">Recipes</a>
-    </div>
-    <div class="panel panel3" ng-class="{ active: isActive('/reviews') }">
-      <a href="/reviews">Reviews</a>
-    </div>
-    <div class="panel panel4" ng-class="{ active: isActive('/delivery') }">
-      <a href="/delivery">Delivery</a>
-    </div>
-    <div class="panel panel5" ng-class="{ active: isActive('/about') }">
-      <a href="/about">About</a>
-    </div>
-  </div>
-</nav>
-```
-
-Format the navigation.
-
-`_nav.scss`:
-
-```css
-nav {
-  height: 6rem;
-}
-
-.panels {
-  min-height: 100%;
-  overflow: hidden;
-  display: flex;
-}
-
-.panel {
-  flex: 1; /* Each panel takes an equal width */
-  display: flex;
-  background: #000;
-  color: white;
-  font-size: 1rem;
-  background-size: cover;
-  background-position: center;
-  // transition: font-size 0.7s linear, flex 0.7s linear;
-  transition: font-size 0.7s cubic-bezier(0.57,-0.43, 0.75, 1.23), flex 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11);
-
-}
-
-.panel1 {
-  background-image: url(/img/1.jpg);
-}
-.panel2 {
-  background-image: url(/img/2.jpg);
-}
-.panel3 {
-  background-image: url(/img/4.jpg);
-}
-.panel4 {
-  background-image: url(/img/3.jpg);
-}
-.panel5 {
-  background-image: url(/img/5.jpg);
-}
-
-.panel a {
-  flex: 1 0 auto; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  width: 100%;
-
-  color: #fff;
-  text-decoration: none;
-  font-family: 'Lobster', cursive;
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
-  font-size: 1.5em;
-}
-
-.panel.active {
-  flex: 2;
-  font-size: 1.5em;
-}
-```
-
-Optional - create a component for the navbar.
-
-```js
-app.component('navList', {
-  templateUrl: '/templates/navigation.html',
-  controller: function NavController($scope, $location) {
-    $scope.isActive = function(viewLocation) {
-      var active = viewLocation === $location.path();
-      return active;
-    };
-  }
-})
-```
-
-Remove the reference to controller in the html template:
-
-```html
-<nav>
-  <div class="panels">
-    <div class="panel panel1" ng-class="{ active: isActive('/') }">
-      <a href="/">Home</a>
-    </div>
-    <div class="panel panel2" ng-class="{ active: isActive('/recipes') }">
-      <a href="/recipes">Recipes</a>
-    </div>
-    <div class="panel panel3" ng-class="{ active: isActive('/reviews') }">
-      <a href="/reviews">Reviews</a>
-    </div>
-    <div class="panel panel4" ng-class="{ active: isActive('/delivery') }">
-      <a href="/delivery">Delivery</a>
-    </div>
-    <div class="panel panel5" ng-class="{ active: isActive('/about') }">
-      <a href="/about">About</a>
-    </div>
-  </div>
-</nav>
-``` -->
-
-<a id="markdown-63-http" name="63-http"></a>
-### 6.3. $HTTP
-
-Let's use our recipes api.
+<a id="markdown-53-http" name="53-http"></a>
+### 5.3. $HTTP
 
 We fetch the dataset from our server using Angular's built-in [$http](https://docs.angularjs.org/api/ng/service/$http) service.
 
@@ -1179,73 +1029,29 @@ app.component('recipeList', {
 });
 ```
 
-In `recipes.html`. change:
+Test the route. 
 
-```html
-<li ng-repeat="recipe in $ctrl.recipes">
-```
-
-to:
-
-```html
-<li ng-repeat="recipe in recipes">
-```
-
-<a id="markdown-64-filtering-and-sorting" name="64-filtering-and-sorting"></a>
-### 6.4. Filtering and Sorting
-
-Add to the `recipes.html` template:
-
-```html
-<div class="wrap">
-  <ul>
-    <li>
-      <p>Filter: <input ng-model="query" /> </p>
-      <p>Sort by:
-        <select ng-model="orderProp">
-          <option value="title">Alphabetical</option>
-          <option value="date">Newest</option>
-        </select>
-      </p>
-    </li>
-  </ul>
-</div>
-```
-
-Edit the ng-repeat:
-
-`<li ng-repeat="recipe in recipes | filter:query | orderBy:orderProp">`
-
-Add a line to the controller that sets the default value of `orderProp` to `date`. If you do not set a default value here, the `orderBy` filter will remain uninitialized until the user picks an option from the drop-down menu.
-
-`this.orderProp = 'date';`:
+Note the routes in Express - `app.js`. Since they run in order we will change our front end route to a universal selector and move it so that it appears after all our api routes:
 
 ```js
-app.component('recipeList', {
-  templateUrl: '/templates/recipes.html',
-  controller: function RecipeListController($scope, $http) {
-    $http.get('api/recipes').then( res => {
-      $scope.recipes = res.data;
-      console.log($scope.recipes);
-    });
+app.get('/api/recipes', recipes.findAll);
+app.get('/api/recipes/:id', recipes.findById);
+app.post('/api/recipes', recipes.add);
+app.put('/api/recipes/:id', recipes.update);
+app.delete('/api/recipes/:id', recipes.delete);
+app.get('/api/import', recipes.import);
+app.get('/api/killall', recipes.killall);
+app.post('api/upload'), recipes.upload;
 
-    $scope.orderProp = 'date';
-  }
+app.get('*', function(req, res) {
+  res.sendFile(__dirname + '/app/index.html');
 });
 ```
 
-[`orderBy`](https://docs.angularjs.org/api/ng/filter/orderBy) is a `filter` that takes an array, copies it, reorders the copy and returns it.
+<a id="markdown-54-adding-routing-to-display-individual-recipes" name="54-adding-routing-to-display-individual-recipes"></a>
+### 5.4. Adding Routing to Display Individual Recipes
 
-Data-binding via `$scope` is one of the core features in Angular. When the page loads, Angular binds the value of the input box to the data model in the controller.
-
-The text that the user types into the input box (bound to `query`) is available as a filter input in the list repeater (`recipe in recipes | filter:query`). When changes to the data model cause the repeater's input to change, the repeater updates the DOM to reflect the current state of the model.
-
-The [filter](https://docs.angularjs.org/api/ng/filter/filter) function uses the `$ctrl.query` value to create a new array that contains only those records that match the query.
-
-<a id="markdown-65-adding-routing-to-display-individual-recipes" name="65-adding-routing-to-display-individual-recipes"></a>
-### 6.5. Adding Routing to Display Individual Recipes
-
-Note the `recipe.._id` expression in the anchor tag:
+Note the `recipe._id` expression in the anchor tag:
 
 `<h1><a href="recipes/{{ recipe._id }}">{{ recipe.title }}</a></h1>`
 
@@ -1295,8 +1101,8 @@ app.component('recipeDetail', {
 
 Clicking on the recipe links in the list view should take you to our stub template.
 
-<a id="markdown-66-adding-the-detail-template" name="66-adding-the-detail-template"></a>
-### 6.6. Adding the Detail Template
+<a id="markdown-55-adding-the-detail-template" name="55-adding-the-detail-template"></a>
+### 5.5. Adding the Detail Template
 
 Create `templates/recipe.html`:
 
@@ -1319,10 +1125,22 @@ Create `templates/recipe.html`:
 </div>
 ```
 
-Edit the component to use `templateUrl`:
+Edit the component to use `templateUrl: '/templates/recipe.html',`:
 
 ```js
-  templateUrl: '/templates/recipe.html',
+app.config(function config($locationProvider, $routeProvider) {
+  $routeProvider
+    .when('/', {
+      template: '<h1>Home</h1>'
+    })
+    .when('/recipes', {
+      template: '<recipe-list></recipe-list>'
+    })
+    .when('/recipes/:recipeId', {
+      templateUrl: '/templates/recipe.html',
+    });
+  $locationProvider.html5Mode(true);
+});
 ```
 
 Add:
@@ -1334,31 +1152,37 @@ Add:
 and use a function to load the data:
 
 ```js
+app.component('recipeDetail', {
+  template: '<div class="wrap">Detail view for {{recipeId}}</div>',
+
   controller: function RecipeDetailController($http, $routeParams, $scope) {
     $http.get('api/recipes/' + $routeParams.recipeId).then(res => {
       ($scope.recipe = res.data);
       console.log($scope.recipe);
     });
   }
+});
 ```
 
-<a id="markdown-67-deleting-a-recipe" name="67-deleting-a-recipe"></a>
-### 6.7. Deleting a Recipe
+<a id="markdown-56-deleting-a-recipe" name="56-deleting-a-recipe"></a>
+### 5.6. Deleting a Recipe
 
-Wire up the `deleteRecipe` function with `ng-click`:
+Wire up the `recipes` template with `<span ng-click="deleteRecipe(recipe._id)">✖︎</span>`:
 
 ```html
-  <ul class="recipes">
-      <li ng-repeat="recipe in recipes | filter:query | orderBy:orderProp">
-      <img ng-src="img/{{ recipe.image }}">
-      <h2><a href="recipes/{{ recipe._id }}">{{ recipe.title }}</a></h2>
-      <p>{{ recipe.description }}</p>
-      <span ng-click="deleteRecipe(recipe._id)">✖︎</span>
-    </li>
-  </ul>
+<div class="wrap">
+    <ul class="recipes">
+        <li ng-repeat="recipe in recipes | filter:query | orderBy:orderProp">
+        <img ng-src="img/{{ recipe.image }}">
+        <h2><a href="recipes/{{ recipe._id }}">{{ recipe.title }}</a></h2>
+        <p>{{ recipe.description }}</p>
+        <span ng-click="deleteRecipe(recipe._id)">✖︎</span>
+      </li>
+    </ul>
+</div>
 ```
 
-Add a delete function to the list controller in `index.js`:
+Add a delete function to the recipe list controller in `index.js`:
 
 ```js
 app.component('recipeList', {
@@ -1369,12 +1193,13 @@ app.component('recipeList', {
       $scope.recipes = res.data;
       console.log($scope.recipes);
     });
-    $scope.orderProp = 'date';
 
     $scope.deleteRecipe = recipeid => console.log(recipeid);
   }
 });
 ```
+
+And test.
 
 Use the api:
 
@@ -1470,8 +1295,8 @@ ul li:nth-child(odd) {
 }
 ``` -->
 
-<a id="markdown-68-adding-a-recipe" name="68-adding-a-recipe"></a>
-### 6.8. Adding a Recipe
+<a id="markdown-57-adding-a-recipe" name="57-adding-a-recipe"></a>
+### 5.7. Adding a Recipe
 
 Add a form to the recipes template:
 
@@ -1585,8 +1410,8 @@ app.component('recipeList', {
 ``` 
 -->
 
-<a id="markdown-69-updating-a-recipe" name="69-updating-a-recipe"></a>
-### 6.9. Updating a Recipe
+<a id="markdown-58-updating-a-recipe" name="58-updating-a-recipe"></a>
+### 5.8. Updating a Recipe
 
 `put` HTTP actions in a REST API correlate to an Update method.
 
@@ -1614,8 +1439,8 @@ The model's update() takes three parameters:
 - JSON object of just the properties to update
 - callback function that returns any errors
 
-<a id="markdown-610-test-with-curl" name="610-test-with-curl"></a>
-### 6.10. Test with Curl
+<a id="markdown-59-test-with-curl" name="59-test-with-curl"></a>
+### 5.9. Test with Curl
 
 We will need to construct this line using ids from the recipes listing and test it in a new Terminal tab. Edit the URL to reflect both the port and id of the target recipe:
 
@@ -1640,8 +1465,8 @@ PUT actions are cumbersome to test in the browser, so we'll use Postman to run t
 
 4: Test to see changes
 
-<a id="markdown-611-edit-recipe-in-the-detail-template" name="611-edit-recipe-in-the-detail-template"></a>
-### 6.11. Edit Recipe in the Detail Template
+<a id="markdown-510-edit-recipe-in-the-detail-template" name="510-edit-recipe-in-the-detail-template"></a>
+### 5.10. Edit Recipe in the Detail Template
 
 We will allow the user to edit a recipe in the detail view - showing and hiding the editor in the UI using Angular's [ng-show / hide](https://docs.angularjs.org/api/ng/directive/ngShow) function.
 
@@ -1718,8 +1543,8 @@ app.get('*', (req, res) => {
 });
 ``` -->
 
-<a id="markdown-612-back-button" name="612-back-button"></a>
-### 6.12. Back button
+<a id="markdown-511-back-button" name="511-back-button"></a>
+### 5.11. Back button
 
 ```js
 $scope.back = () => window.history.back();
@@ -1741,8 +1566,8 @@ app.component('recipeDetail', {
 });
 ```
 
-<a id="markdown-613-edit-button" name="613-edit-button"></a>
-### 6.13. Edit Button
+<a id="markdown-512-edit-button" name="512-edit-button"></a>
+### 5.12. Edit Button
 
 Toggling the editor interface:
 
@@ -1835,11 +1660,11 @@ app.component('recipeDetail', {
 
 And test.
 
-<a id="markdown-7-notes" name="7-notes"></a>
-## 7. Notes
+<a id="markdown-6-notes" name="6-notes"></a>
+## 6. Notes
 
-<a id="markdown-71-adding-an-image" name="71-adding-an-image"></a>
-### 7.1. Adding an Image
+<a id="markdown-61-adding-an-image" name="61-adding-an-image"></a>
+### 6.1. Adding an Image
 
 Implement an image switcher within our recipe details component.
 
@@ -1880,8 +1705,8 @@ And make the following change to the template, adding a class for styling and a 
 
 (Note: we no longer need `"mainImageUrl": "images/home/lasagna-1.png",` in the json since we are now refering to the images array.)
 
-<a id="markdown-72-ng-click" name="72-ng-click"></a>
-### 7.2. ng-click
+<a id="markdown-62-ng-click" name="62-ng-click"></a>
+### 6.2. ng-click
 
 Add a list of images to the template that we will click on to swap out the main image.
 
