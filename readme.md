@@ -7,13 +7,15 @@
   - [2.1. Environment Variables](#21-environment-variables)
   - [2.2. Transpiling to CSS](#22-transpiling-to-css)
   - [2.3. Adding a Recipe](#23-adding-a-recipe)
+  - [Responsive Recipes](#responsive-recipes)
 - [3. ES6 Modules](#3-es6-modules)
+  - [ES6 Modules - Demo](#es6-modules---demo)
 - [4. Webpack](#4-webpack)
   - [4.1. Our Script](#41-our-script)
 - [5. Babel](#5-babel)
-  - [5.1. More ES6 Module Syntax](#51-more-es6-module-syntax)
+  - [5.1. ES6 Module Syntax (Demo)](#51-es6-module-syntax-demo)
 - [6. Angular as a Templating Engine](#6-angular-as-a-templating-engine)
-  - [6.1. Important AngularJS Concepts](#61-important-angularjs-concepts)
+  - [6.1. Our first Component](#61-our-first-component)
   - [6.2. Routing and Multiple Components](#62-routing-and-multiple-components)
   - [6.3. $HTTP](#63-http)
   - [6.4. Filtering and Sorting](#64-filtering-and-sorting)
@@ -49,16 +51,22 @@ git clone https://github.com/front-end-intermediate/session-5.git
 `cd` into the newly cloned folder, install the npm components from last class and kick off the application:
 
 ```sh
-$npm i
-$npm start
+npm i
+npm start
 ```
 
 Visit `localhost:3001` in the browser.
 
-Edit the mongoUri variable in `app.js` to use your own database on mLab.
+I've externalized the `scripts.js` file for `index.html` and it isn't loading. You will need to enable a static directory in  `app.js` file:
+
+```js
+app.use(express.static('app'));
+```
 
 <a id="markdown-21-environment-variables" name="21-environment-variables"></a>
 ### 2.1. Environment Variables
+
+Edit the mongoUri variable in `app.js` to use your own database on mLab.
 
 Since the data may be sensitive we will use a `.env` file.
 
@@ -70,27 +78,31 @@ Now create a `.env` file at the root of the project with:
 
 ```sh
 NODE_ENV=development
-DB='mongodb://devereld:dd2345@ds157223.mlab.com:57223/recipes-daniel'
-APIKEY=1234567
+DB=recipes-daniel
+DB_USER=devereld
+DB_PW=dd2345
 PORT=3004
 ```
 
-You should probably not use `.env` files in your production environment though and rather set the values directly on the respective host. Therefore, you may want to wrap your load statement in an if-statement.
+It is common to not use `.env` files in a production environment and set the values directly on the respective host. You may want to wrap your load statement in an if-statement.
+
+In `app.js`:
 
 ```js
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').load();
 }
-console.log(process.env.APIKEY)
+console.log(process.env.DB)
 ```
 
 Use the DB variable:
 
 ```js
-const mongoUri = process.env.DB;
+const mongoUri = `mongodb://${process.env.DB_USER}:${process.env.DB_PW}@ds157223.mlab.com:57223/${process.env.DB}`;
+console.log(mongoUri)
 ```
 
-Set the port:
+Set the port in `app.js`:
 
 ```js
 const PORT = process.env.PORT || 3000;
@@ -101,21 +113,23 @@ mongoose.connect(mongoUri, { useNewUrlParser: true }, () => {
 });
 ```
 
-Your .env file should never be pushed to version control. It should only include environment-specific values such as database passwords or API keys. Add the `.env` file to `.gitignore`.
+Port 3000 is the default for node applications. 
 
-Test by going to the recipes end point [localhost:3004/api/recipes](localhost:3004/api/recipes).
+Test by going to the recipes end point [localhost:3000/api/recipes](localhost:3000/api/recipes).
 
 Return to the home page and click on the link. Note the error in the browser's console.
 
-I've externalized the `scripts.js` file for `index.html` and it isn't loading. You will need to add this to the `app.js` file:
+Since changed ports you'll need to change the port number in `scripts.js`:
 
 ```js
-app.use(express.static('app'));
+fetchRecipes( 'http://localhost:3000/api/recipes', (recipes) => {
+  ...
+}
 ```
 
-Test again. You've changed ports. This will not work ``fetchRecipes( `http://localhost:${PORT}/api/recipes`` so just change the port number.
-
 Visit the import endpoint to import recipes if needed.
+
+Your .env file should never be pushed to version control. It should only include environment-specific values such as database passwords or API keys. Add the `.env` file to `.gitignore`.
 
 For development purposes, I don't want to click the button everytime I need to see my content so I'll start by just calling the function at the bottom of `scripts.js`:
 
@@ -123,7 +137,7 @@ For development purposes, I don't want to click the button everytime I need to s
 getEm();
 ```
 
-Start by adding the ingredients:
+Review by adding the ingredients:
 
 ```js
 ${recipes.map(
@@ -150,7 +164,7 @@ Take a look at one of the preparation steps:
   `
 ```
 
-Display the preparation steps;
+Display all the preparation steps;
 
 ```js
 function getEm() {
@@ -190,7 +204,7 @@ Add the ingredients, an image and description:
 ```js
 function getEm() {
 
-  fetchRecipes('http://localhost:3001/api/recipes', (recipes) => {
+  fetchRecipes('http://localhost:3000/api/recipes', (recipes) => {
     console.log(recipes)
     const markup = `
       <ul class="recipes">
@@ -282,7 +296,7 @@ Restart and add a link to `index.html`:
 
 `<link rel="stylesheet" href="css/styles.css">`
 
-Transpiling will occur once you made a change to the SASS. Add this to `_base.scss`:
+Transpiling will occur once you make a change to the SASS. Add this to `_base.scss`:
 
 ```css
 img {
@@ -338,34 +352,33 @@ Be sure to include `app.use(bodyParser.urlencoded({ extended: true }));` in app.
 
 Read up on body parser here: [https://medium.com/@adamzerner/how-bodyparser-works-247897a93b90](https://medium.com/@adamzerner/how-bodyparser-works-247897a93b90)
 
+Small item: we'll use our link as a button that will refresh the page. Replace the link in `index.html` with:
+
 ```html
   <form action="/" method="get">
     <button>Refresh</button>
   </form>
 ```
 
+You will need to make adjustments to `scripts.js`:
+
+```js
+var elem = document.querySelector('#app');
+// var link = document.querySelector('a');
+
+// link.addEventListener('click', getEm)
+```
+
+Test the form. Note that the endpoint returns json. 
+
+Edit the controller:
+
 `// return res.sendStatus(200);`
 
-```css
-.recipes {
-  margin: 0 1rem;
-  padding: 0;
-  list-style: none;
-  
-  li {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto;
-  }
-  
-  > li h2 {
-    border-bottom: 4px dotted #bada55;
-    color: #007eb6;
-    font-family: lobster;
-    font-size: 2.5rem;
-  }
-}
-```
+<a id="markdown-responsive-recipes" name="responsive-recipes"></a>
+### Responsive Recipes
+
+We need to be able to better see our recipes. Add the following to `_recipes.scss`:
 
 ```css
 .recipes {
@@ -395,7 +408,11 @@ Read up on body parser here: [https://medium.com/@adamzerner/how-bodyparser-work
 
 Add minimal responsiveness.
 
+First, make sure the html file includes the viewport meta tag:
+
 `<meta name="viewport" content="width=device-width, initial-scale=1.0">`
+
+Then adjust the recipes css:
 
 ```js
 .recipes {
@@ -423,16 +440,35 @@ Add minimal responsiveness.
 
 ```
 
-Code fencing and orgnaization techniques - IIFEs, function expressions.
+Note the error. Create a `_variables.scss` file in `scss/imports` and link it to `styles.scss`:
+
+```css
+@import 'imports/variables';
+@import 'imports/base';
+@import 'imports/recipes';
+@import 'imports/nav';
+@import 'imports/forms';
+```
+
+Add the variable to `_variables.scss`:
+
+```css
+$breakSm: 380px;
+```
 
 <a id="markdown-3-es6-modules" name="3-es6-modules"></a>
 ## 3. ES6 Modules
 
+Code fencing and organization techniques - IIFEs, function expressions.
+
 [Modules](https://webpack.js.org/concepts/modules/) are a way of breaking up JavaScript into smaller, more focused bits of functionality that can be combined.
 
-We have seen CommonJS Modules in Node and are already using [them](https://nodejs.org/api/modules.html) in our projects. The `exports` and `require` statements working within our app are CommonJS Modules.
+We have seen CommonJS Modules in Node and are using [them](https://nodejs.org/api/modules.html) in our projects. The `exports` and `require` statements working within our app are CommonJS Modules.
 
-ES6 modules are not natively supported in the browser so we need to bundle them. Having installed Webpack for bundling we can now use [them](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import).
+<!-- ES6 modules are not natively supported in the browser so we need to bundle them. Having installed Webpack for bundling we can now use [them](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import). -->
+
+<a id="markdown-es6-modules---demo" name="es6-modules---demo"></a>
+### ES6 Modules - Demo
 
 Create folder `module` in `app` and add `index.html` at the top level
 
@@ -458,6 +494,8 @@ function getComponent () {
 
 document.body.appendChild(getComponent());
 ```
+
+Test at `http://localhost:3000/module/`
 
 Create `dep-1.js`:
 
@@ -505,7 +543,7 @@ document.body.appendChild(getComponent());
   },
 ```
 
-webpack.config.js
+`webpack.config.js`:
 
 ```js
 const path = require('path');
@@ -549,21 +587,34 @@ function fetchRecipes(url, callback) {
 export default fetchRecipes;
 ```
 
-Import it into `index.js`:
-
-`import getEm from './getem.js';`
-
-Do the same for the `getEm` function:
+Create or edit the `webpack.config.js` file at the top level of the project:
 
 ```js
-import getEm from './getem.js';
+const path = require('path');
 
-const elem = document.querySelector('#app');
-const refresh = document.querySelector('button');
+module.exports = {
+  mode: 'none',
+  entry: './src/index.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'app/js/')
+  }
+};
+```
 
-refresh.addEventListener('click', getEm)
+Edit `index.html`:
 
-getEm(elem)
+`<script src="js/bundle.js"></script>`
+
+Cut and paste the `getEm` function into a new file `getem.js` and import it into `index.js`:
+
+```js
+import fetchRecipes from './fetch.js';
+import getEm from './getEm.js';
+
+var elem = document.querySelector('#app');
+
+getEm(elem);
 ```
 
 Require `fetch` into `getem`:
@@ -573,7 +624,7 @@ import fetchRecipes from './fetch.js';
 
 function getEm(elem) {
 
-  fetchRecipes('http://localhost:3001/api/recipes', (recipes) => {
+  fetchRecipes('http://localhost:3000/api/recipes', (recipes) => {
 
     const markup = `
       <ul class="recipes">
@@ -631,12 +682,38 @@ Setting the mode to production in our webpack configuration will minimize the Ja
 
 Adding `devtool: 'source-map',` will create a source map. Restart and review the `js` folder and note the `bundle.js.map`.
 
+`webpack.config.js`:
+
+```js
+const path = require('path');
+
+module.exports = {
+  mode: 'production',
+  devtool: 'source-map',
+  entry: './src/index.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'app/js/')
+  }
+};
+```
+
+With sourcemap enabled we will get errors with line numbers relative to our pre-bundled files.
+
+e.g.: try temporarily commenting out this line in `fetch.js`:
+
+`export default fetchRecipes;`
+
 <a id="markdown-5-babel" name="5-babel"></a>
 ## 5. Babel
 
 I'll be following these instructions for adding [Babel](https://webpack.js.org/loaders/babel-loader/#src/components/Sidebar/Sidebar.jsx) to Webpack.
 
-Note the change from `mode: 'production',` to `mode: 'development',` below:
+Install babel:
+
+`npm install -D babel-core babel-loader babel-preset-env`
+
+Note the changes from `mode: 'production',` to `mode: 'development',`  in `webpack.config` below:
 
 ```js
 const path = require('path');
@@ -666,12 +743,12 @@ module.exports = {
 };
 ```
 
-Restart the server with and view `http://localhost:3004/`.
+Restart the server with and view `http://localhost:3000/`.
 
-One of the best resources for Webpack is the book at [survivejs](https://survivejs.com).
+(One of the best resources for Webpack is the book at [survivejs](https://survivejs.com).)
 
-<a id="markdown-51-more-es6-module-syntax" name="51-more-es6-module-syntax"></a>
-### 5.1. More ES6 Module Syntax
+<a id="markdown-51-es6-module-syntax-demo" name="51-es6-module-syntax-demo"></a>
+### 5.1. ES6 Module Syntax (Demo)
 
 Create `src/test.js`.
 
@@ -689,7 +766,9 @@ import apiKey from './test';
 console.log(apiKey);
 ```
 
-(The path './test' is relative to the root established in `webpack.config.js`.)
+(Remember, `console.log(apiKey);` is now on the front end and appears in the browser's console.)
+
+The path './test' is relative to the root established in `webpack.config.js`.
 
 Refresh the browser. Note the new variable in the browser's console.
 
@@ -717,7 +796,9 @@ console.log(apiKey);
 
 Multiple named exports encourage code encapsulation and reuse across multiple projects.
 
-Functions can be internal to a module or exported:
+Functions can be internal to a module or exported.
+
+`test.js`:
 
 ```js
 export const apiKey = 'abcdef';
@@ -734,14 +815,16 @@ sayHi('daniel');
 console.log(foo, url);
 ```
 
-See [the documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) on MDN for options including `import as`, `export as` and exporting multiple items.
+See [the documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) for options including `import as`, `export as` and exporting multiple items.
 
 <a id="markdown-6-angular-as-a-templating-engine" name="6-angular-as-a-templating-engine"></a>
 ## 6. Angular as a Templating Engine
 
-Let's look at using an older - but still common and actively maintained - version of Angular as our page templating language. Documentation for the features we will be using is located [here](https://docs.angularjs.org/guide).
+Let's look at using Angular as our page templating language. Documentation for the features we will be using is located [here](https://docs.angularjs.org/guide).
 
-Delete the contents of `index.js` and edit `index.html` page in public:
+Save the contents of `index.js` and `index.html` to `index-OLD.html` and `index-OLD.js`. 
+
+Edit `index.html` page in the `app` directory:
 
 ```html
 <!DOCTYPE html>
@@ -773,7 +856,7 @@ In the old days you would use `<script>` tags to access libraries etc., e.g.:
 
 Since we are bundling we use ES6 imports and our installed packages in `node_modules`.
 
-Import angular and angular routing into `index.js`:
+Delete all the content in `index.js` and import angular and angular routing into `index.js`:
 
 ```js
 import angular from 'angular';
@@ -782,64 +865,10 @@ import ngRoute from 'angular-route';
 
 (Note that your bundle just got very large.)
 
-<a id="markdown-61-important-angularjs-concepts" name="61-important-angularjs-concepts"></a>
-### 6.1. Important AngularJS Concepts
+<a id="markdown-61-our-first-component" name="61-our-first-component"></a>
+### 6.1. Our first Component
 
-[Wikipedia](https://en.wikipedia.org/wiki/AngularJS) article on Angular.
-
-```html
-<body>
-  <div class="site-wrap" ng-app="foodApp" >
-    <div ng-controller="myCtrl">
-      Name: <input ng-model="name">
-      <p>{{ name }}</p>
-    </div>
-  </div>
-</body>
-```
-
-`index.js`:
-
-```js
-import angular from 'angular';
-import ngRoute from 'angular-route';
-
-const app = angular.module('foodApp', ['ngRoute']);
-
-app.controller('myCtrl', $scope => ($scope.name = 'John Doe'));
-```
-
-- [MVC](https://en.wikipedia.org/wiki/Model–view–controller) - Model, View, Controller
-- `{{ }}` - "moustaches" or "handlebars" the evaluate to a value
-- `$scope` - the "glue" between application controller and the view
-- ng-model (ng-repeat etc.) is an Angular [directive](https://docs.angularjs.org/api/ng/directive)
-- AngularJS vs Angular
-- Dependency injection:
-
-```js
-const app = angular.module('foodApp', ['ngRoute']);
-```
-
-(`ngRoute` supplants Express routes for handling front end views. Always include a single route in Express for your SPA page, here `index.html`. Angular routes handle the view (templates) and the logic (controllers) for the views.)
-
-Bootstrap the app in `index.html` for our new Recipes app:
-
-```html
-<body ng-app="foodApp">
-```
-
-Create the first component:
-
-```js
-app.component('recipeList', {
-  template: `<div class="wrap"><h1>{{ name }} component</h1></div>`,
-  controller: function RecipeListController($scope) {
-    $scope.name = 'Recipe List'
-  }
-});
-```
-
-Display the component in the view:
+Bootstrap the app in `index.html` and add a custom tag:
 
 ```html
 <body ng-app="foodApp">
@@ -849,73 +878,49 @@ Display the component in the view:
 </body>
 ```
 
-Demo - sample second component `<dog-food></dog-food>`:
+Create the first component:
 
 ```js
-app.component('dogFood', {
-  template: `<div class="wrap"><h1> {{ name }} component</h1></div>`,
-  controller: function RecipeListController($scope) {
-    $scope.name = 'Dog Food'
-  }
-});
-```
+import angular from 'angular';
+import ngRoute from 'angular-route';
 
-Add a template and data to the controller:
+const app = angular.module('foodApp', ['ngRoute']);
 
-```js
 app.component('recipeList', {
-  template: `
-  <div class="wrap">
-  <ul class="recipes">
-    <li ng-repeat="recipe in recipes">
-    <img ng-src="img/{{ recipe.image }}">
-    <h2><a href="recipes/{{ recipe._id }}">{{ recipe.title }}</a></h2>
-    <p>{{ recipe.description }}</p>
-    </li>
-  </ul>
-  </div>
-  `,
-
-  controller: function RecipeListController() {
-    this.recipes = [
-      {
-        name: 'recipe1309',
-        title: 'Lasagna',
-        date: '2013-09-01',
-        description:
-          'Lasagna noodles piled high and layered full of three kinds of cheese to go along with the perfect blend of meaty and zesty, tomato pasta sauce all loaded with herbs.',
-        image: 'lasagna.png'
-      },
-      {
-        name: 'recipe1404',
-        title: 'Pho-Chicken Noodle Soup',
-        date: '2014-04-15',
-        description:
-          'Pho (pronounced “fuh”) is the most popular food in Vietnam, often eaten for breakfast, lunch and dinner. It is made from a special broth that simmers for several hours infused with exotic spices and served over rice noodles with fresh herbs.',
-        image: 'pho.png'
-      },
-      {
-        name: 'recipe1210',
-        title: 'Guacamole',
-        date: '2012-10-01',
-        description:
-          'Guacamole is definitely a staple of Mexican cuisine. Even though Guacamole is pretty simple, it can be tough to get the perfect flavor – with this authentic Mexican guacamole recipe, though, you will be an expert in no time.',
-        image: 'guacamole.png'
-      },
-      {
-        name: 'recipe1810',
-        title: 'Hamburger',
-        date: '2012-10-20',
-        description:
-          'A Hamburger (or often called as burger) is a type of food in the form of a rounded bread sliced in half and its Center is filled with patty which is usually taken from the meat, then the vegetables be lettuce, tomatoes and onions.',
-        image: 'hamburger.png'
-      }
-    ];
+  template: `<div class="wrap"><h1>{{ name }} component</h1></div>`,
+  controller: function RecipeListController($scope) {
+    $scope.name = 'Recipe List'
   }
 });
 ```
 
-Move the template html into a separate file in a new folder: `app > templates > recipes.html`
+View the page in the browser.
+
+
+- [MVC](https://en.wikipedia.org/wiki/Model–view–controller) - Model, View, Controller
+- `{{ }}` - "moustaches" or "handlebars" in the template evaluate a value
+- `$scope` - the "glue" between application controller and the view (the state)
+- ng-model (and ng-repeat etc.) is an Angular [directive](https://docs.angularjs.org/api/ng/directive)
+- AngularJS vs Angular
+- Dependency injection for `ngRoute`:
+
+`const app = angular.module('foodApp', ['ngRoute']);`
+
+`ngRoute` supplants Express routes for handling front end views. Always include a single route in Express for your SPA page. Angular routes handle the view (templates) and the logic (controllers) for the views.
+
+Add a template in a new folder: `app > templates > recipes.html`:
+
+```html`
+<div class="wrap">
+<ul class="recipes">
+  <li ng-repeat="recipe in recipes">
+  <img ng-src="img/{{ recipe.image }}">
+  <h2><a href="recipes/{{ recipe._id }}">{{ recipe.title }}</a></h2>
+  <p>{{ recipe.description }}</p>
+  </li>
+</ul>
+</div>
+```
 
 Edit the template declaration in myapp.js:
 
@@ -937,49 +942,6 @@ Edit the template declaration in myapp.js:
       "**/other/**"
     ],
 }
-```
-
-In `styles.scss`:
-
-```css
-@import 'imports/recipes';
-```
-
-In `_recipes.scss`:
-
-```css
-@import url('https://fonts.googleapis.com/css?family=Lobster');
-.wrap {
-  background: #eee;
-  max-width: 940px;
-  margin: 0 1rem;
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  li {
-    display: flex;
-    padding: 1rem;
-    img {
-      width: 30%;
-      height: 100%;
-      padding: 0.5rem;
-      border: 1px solid #ddd;
-      margin-right: 1rem;
-      background: #fff;
-    }
-    h1 {
-      font-family: lobster;
-      a {
-        color: #666;
-        text-decoration: none;
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-  }
-}
 
 ``` -->
 
@@ -991,7 +953,11 @@ Create our first route using [Angular's ngRoute](https://docs.angularjs.org/api/
 ```js
 app.config(function config($locationProvider, $routeProvider) {
   $routeProvider.when('/', {
-    template: '<p>recipe-list</p>'
+    template: `
+      <div class="wrap">
+        <h1>Home</h1>
+      </div>
+      `
   });
   $locationProvider.html5Mode(true);
 });
@@ -1014,7 +980,9 @@ Currently the component is hard coded:
 Use the `ng-view` directive to alow it to use whatever module we pass into it:
 
 ```html
-<div ng-view></div>
+<body ng-app="foodApp">
+  <div ng-view></div>
+</body>
 ```
 
 And add the template to our Angular route:
@@ -1189,7 +1157,7 @@ Remove the reference to controller in the html template:
 <a id="markdown-63-http" name="63-http"></a>
 ### 6.3. $HTTP
 
-Let's use the api instead of keeping the data model in the controller.
+Let's use our recipes api.
 
 We fetch the dataset from our server using Angular's built-in [$http](https://docs.angularjs.org/api/ng/service/$http) service.
 
@@ -1950,3 +1918,5 @@ app.component('recipeDetail', {
 `https://www.npmjs.com/package/dotenv`
 
 `https://www.contentful.com/blog/2017/04/04/es6-modules-support-lands-in-browsers-is-it-time-to-rethink-bundling/`
+
+https://www.zeolearn.com/magazine/connecting-reactjs-frontend-with-nodejs-backend
