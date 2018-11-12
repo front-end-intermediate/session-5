@@ -466,7 +466,7 @@ We have seen CommonJS Modules in Node and are using [them](https://nodejs.org/ap
 <a id="markdown-21-es6-modules---demo" name="21-es6-modules---demo"></a>
 ### 2.1. ES6 Modules - Demo
 
-Create folder `module` in `app` and add `index.html` at the top level
+Note the folder `module` in `app` and `index.html` at the top level:
 
 ```html
 <html>
@@ -479,7 +479,7 @@ Create folder `module` in `app` and add `index.html` at the top level
 </html>
 ```
 
-Create `index.js` in the `modules` folder:
+Examine `index.js` in the `modules` folder:
 
 ```js
 function getComponent () {
@@ -493,7 +493,7 @@ document.body.appendChild(getComponent());
 
 Test at `http://localhost:3000/module/`
 
-Create `dep-1.js`:
+Examine `dep-1.js`:
 
 ```js
 import dep2 from './dep-2.js';
@@ -503,7 +503,7 @@ export default function() {
 }
 ```
 
-Create `dep-2.js`:
+And `dep-2.js`:
 
 ```js
 export default function() {
