@@ -2,6 +2,29 @@
 body {
   margin: 0; }
 
+img {
+  width: 100%; }
+
+.recipes {
+  margin: 0 1rem;
+  padding: 0;
+  list-style: none; }
+  @media (min-width: 380px) {
+    .recipes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto 1fr 1fr;
+      grid-column-gap: 1.5rem;
+      grid-row-gap: 1.5rem; } }
+  .recipes h2 {
+    color: #007eb6;
+    font-family: lobster;
+    font-size: 2.5rem;
+    border-bottom: 3px solid #999;
+    grid-column: 1 / span 2; }
+  .recipes p {
+    font-size: 1.25rem; }
+
 nav {
   height: 6rem; }
 
@@ -52,5 +75,19 @@ nav {
 .panel.active {
   flex: 2;
   font-size: 1.5em; }
+
+input, textarea {
+  font-size: 1rem;
+  display: block;
+  margin: 1rem;
+  width: 90%;
+  padding: 0.5rem; }
+
+button {
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.5rem;
+  margin: 0 1rem;
+  background: #007eb6; }
 
 /*# sourceMappingURL=styles.css.map */

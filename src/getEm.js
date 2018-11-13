@@ -1,13 +1,6 @@
-var elem = document.querySelector('#app');
+import fetchRecipes from './fetch.js';
 
-function fetchRecipes(url, callback) {
-  fetch(url)
-  .then( res => res.json() )
-  .then( data => callback(data) )
-  .catch( (err) => { console.error(err)})
-}
-
-function getEm() {
+function getEm(elem) {
 
   fetchRecipes('http://localhost:3000/api/recipes', (recipes) => {
     console.log(recipes)
@@ -45,4 +38,4 @@ function getEm() {
   })
 }
 
-getEm();
+export default getEm;

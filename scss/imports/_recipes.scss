@@ -1,0 +1,22 @@
+.recipes {
+  margin: 0 1rem;
+  padding: 0;
+  list-style: none;
+  @media (min-width: $breakSm){
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr;
+    grid-column-gap: 1.5rem;
+    grid-row-gap: 1.5rem;
+  }
+  h2 {
+    color: #007eb6;
+    font-family: lobster;
+    font-size: 2.5rem;
+    border-bottom: 3px solid #999;
+    grid-column: 1 / span 2;
+  }
+  p {
+    font-size: 1.25rem;
+  }
+}

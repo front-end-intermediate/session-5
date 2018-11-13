@@ -4,13 +4,25 @@
 <head>
   <meta charset="UTF-8">
   <title>START</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-  <a href="#">See Recipes</a>
+  <form action="/" method="get">
+    <button>Refresh</button>
+  </form>
+
+  <form action="/api/recipes" method="POST">
+    <input type="text" placeholder="Recipe Title" name="title">
+    <input type="text" placeholder="Image" name="image">
+    <textarea type="text" placeholder="Description" name="description"></textarea>
+    <button type="submit">Submit</button>
+  </form>
+
   <div id="app"></div>
   
-  <script src="js/scripts.js"></script>
+  <script src="js/bundle.js"></script>
 </body>
 
 </html>

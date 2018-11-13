@@ -17,7 +17,7 @@ exports.findById = function(req, res) {
 exports.add = function(req, res) {
   Recipe.create( req.body, (err, recipe) => {
     if (err) return console.log(err);
-    return res.send(recipe)
+    return res.redirect('/')
   })
 };
 
