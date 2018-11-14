@@ -11,20 +11,16 @@
 <body>
   
   <div>
-    <h1>FileUpload</h1>
-    <form ref='uploadForm' 
-    id='uploadForm' 
-    action='/api/upload' 
-    method='post' 
-    encType="multipart/form-data">
-      <input type="file" name="sampleFile" />
-      <input type='submit' value='Upload!' />
-  </form>   
+    <form action='/api/upload' method='post' encType="multipart/form-data" >
+      <input type="file" name="file" />
+      <input type="text" placeholder="File name (.jpg only)" name="filename" />
+      <button type='submit'>Submit</button>
+    </form>   
   </div>
   
-  <form action="/" method="get">
+  <!-- <form action="/" method="get">
     <button>Refresh</button>
-  </form>
+  </form> -->
   
   <form action="/api/recipes" method="POST">
     <input type="text" placeholder="Recipe Title" name="title">

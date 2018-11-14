@@ -2,22 +2,17 @@ const mongoose = require('mongoose');
 const Recipe = mongoose.model('Recipe');
 
 exports.upload = function(req, res, next) {
-
-  console.log(req.files.sampleFile)
-  // console.log(__dirname)
-
+  console.log(req.files)
   if (Object.keys(req.files).length == 0) {
     return res.status(400).send('No files were uploaded.');
   }
-  let sampleFile = req.files.sampleFile;
-
-  sampleFile.mv(`${__dirname}/app/img/${req.body.filename}.jpg`, err => {
+  let file = req.files.file;
+  file.mv(`./app/img/${req.body.filename}.jpg`, err => {
     if (err) {
-      return res.status(500).send('hi ' + err);
+      return res.status(500).send(err);
     }
-    
     res.json({ file: `app/img/${req.body.filename}.jpg` });
-    console.log('ho ' + res.json);
+    console.log(res.json);
   });
 };
 

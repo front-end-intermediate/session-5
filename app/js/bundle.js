@@ -168,9 +168,6 @@ var _getEm2 = _interopRequireDefault(_getEm);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import { apiKey as foo, url, sayHi } from './test';
-// sayHi('daniel');
-// console.log(foo, url);
 var elem = document.querySelector('#app');
 (0, _getEm2.default)(elem);
 
