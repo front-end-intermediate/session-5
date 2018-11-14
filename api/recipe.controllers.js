@@ -1,6 +1,26 @@
 const mongoose = require('mongoose');
 const Recipe = mongoose.model('Recipe');
 
+exports.upload = function(req, res, next) {
+
+  console.log(req.files.sampleFile)
+  // console.log(__dirname)
+
+  if (Object.keys(req.files).length == 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+  let sampleFile = req.files.sampleFile;
+
+  sampleFile.mv(`${__dirname}/app/img/${req.body.filename}.jpg`, err => {
+    if (err) {
+      return res.status(500).send('hi ' + err);
+    }
+    
+    res.json({ file: `app/img/${req.body.filename}.jpg` });
+    console.log('ho ' + res.json);
+  });
+};
+
 exports.findAll = function(req, res) {
   Recipe.find({}, function(err, results){
     return res.send(results)
@@ -87,5 +107,5 @@ exports.import = function(req, res) {
       if (err) return console.log(err);
       return res.sendStatus(202);
     }
-  );
-};
+    );
+  };

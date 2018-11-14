@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors'); // addition we make
+const fileUpload = require('express-fileupload'); //addition we make
 
 const recipeModels = require('./api/recipe.model');
 const recipes = require('./api/recipe.controllers');
@@ -18,6 +20,8 @@ const mongoUri = 'mongodb://devereld:dd2345@ds157223.mlab.com:57223/recipes-dani
 // app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('app'));
+app.use(cors());
+app.use(fileUpload());
 
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/app/index.html');
@@ -30,6 +34,8 @@ app.put('/api/recipes/:id', recipes.update);
 app.delete('/api/recipes/:id', recipes.delete);
 app.get('/api/import', recipes.import);
 app.get('/api/killall', recipes.killall);
+
+app.post('/api/upload', recipes.upload);
 
 const PORT = process.env.PORT || 3000;
 
